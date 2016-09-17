@@ -1,10 +1,22 @@
 .sample { 
-	border-style: solid;
-	border-width: 10px;
-	border-color: blue;
+	margin: auto;
+	font-family: "Trebuchet MS":
 }
 
-#dog-info {}
+#address-input {
+	width: 60%;
+	margin-top: 200px;
+	margin: auto;
+}
+
+#distance-input {
+	width: 60%;
+	margin: auto;
+}
+
+#header {}
+
+/*#dog-info {}
 
 #dog-names{}
 
@@ -16,4 +28,4 @@
 	color: white;
 	padding: 20px;
 	text-transform: uppercase;
-}
+}*/
