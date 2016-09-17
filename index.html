@@ -11,6 +11,7 @@
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js">
     </script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
     <script src="index.js"></script>
     <script src="algorithm.js"></script>
@@ -49,7 +50,7 @@
 	<h1>Walk With Me!</h1>
 <img src="https://media.giphy.com/media/JpV8LLfdgdqi4/giphy.gif" height="50">
 <h4 id="miles"></h4>
-</div><br/>
+</div>
   <div id='inputs'>
     <div align="center"><button type=button class='btn btn-primary' id="locator" onclick="geolocate()">Get my location</button></div>
     <div class="input-group input-group-lg form-horizontal" id="address-input">
@@ -70,15 +71,15 @@
 
 <script>
 function geolocate() {
-  console.log("locating...");
   var latitude;
   var longitude;
   navigator.geolocation.getCurrentPosition(function(location) {
-    var coords = location.coords.latitude.toString() + ", " + location.coords.longitude.toString();
-    console.log(coords);
-    var addressInput = document.getElementById('address').value = coords;
-    console.log('a', addressInput.value)
-    console.log("done");
+    var latlng = {lat: location.coords.latitude, lng: location.coords.longitude}
+    geocoder.geocode({'location': latlng}, function(results, status) {
+      document.getElementById('address').value = results[0].formatted_address;
+      map.setZoom(18);
+      map.setCenter(latlng);
+    });
   });
 }
 </script>
@@ -124,7 +125,7 @@ function geolocate() {
   }
   function locate() {
     var dist = document.getElementById('distance').value;
-		var address = document.getElementById('address').value;
+    var address = document.getElementById('address').value;
     var marker;
     geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == 'OK') {
