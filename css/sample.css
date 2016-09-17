@@ -32,6 +32,7 @@
 
 #dirpanel {
   width: 30%;
+  height: 70%;
   float: left;
   display: block;
   margin: 80px;
@@ -39,7 +40,6 @@
   left: 5px;
   top: -100%;
   background: #ffffff;
-  height: 70%;
   overflow-y: scroll;
   text-align: center;
   vertical-align: middle;
