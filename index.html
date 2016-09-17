@@ -20,7 +20,7 @@
 	<body onload="intialize()">
 <nav>
   <ul class="right hide-on-med-and-down">
-    <li><a href="/profiles/about.html">ABOUT</a></li>
+    <li><a href="./profiles/about.html">ABOUT</a></li>
     <li><a href="#" onclick="displayLogin()">LOGIN</a></li>
     <li><a href="#" onclick="displaySignup()">SIGNUP</a></li>
   </ul>
@@ -48,6 +48,7 @@
 	</div>
 	<div class="input-group input-group-lg" id="confirm" align="center"><input type="button" value="Point me!" onclick="locate()"></div>
 <br/>
+<div id="dirpanel"></div>
 <div id="map"></div>
 
 <script>
@@ -72,7 +73,8 @@
     geocoder = new google.maps.Geocoder();
     directionsDisplay = new google.maps.DirectionsRenderer({
       draggable: true,
-      map: map
+      map: map,
+			panel: document.getElementById('dirpanel')
     });
     directionsDisplay.addListener('directions_changed', function() {
       displayTotalDist(directionsDisplay.getDirections());
