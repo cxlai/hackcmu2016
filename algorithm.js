@@ -1,27 +1,10 @@
-/*//http://www.movable-type.co.uk/scripts/latlong.html
-function getDist (lat1,lat2) {
-	var R = 3959; // radius of earth in miles
-	var φ1 = lat1.toRadians();
-	var φ2 = lat2.toRadians();
-	var Δφ = (lat2-lat1).toRadians();
-	var Δλ = (lon2-lon1).toRadians();
-	
-	var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-					Math.cos(φ1) * Math.cos(φ2) *
-					Math.sin(Δλ/2) * Math.sin(Δλ/2);
-	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-	return R * c;
-}*/
-
-// inverse of the above function, taken from the internet
-// d is an x OR y component. If x, p1 and p2 are 0.
-function getLatLong (d, p1, p2) {
-	var sign = d / Math.abs(d);
-	d = Math.abs(d);
-	var R = 3959; // radius of earth in miles, source google
-	var c = d / R;
-	var a = Math.tan(c / 2);
-	return sign * 2 * Math.asin(Math.sqrt(a) / (Math.cos(p1) * Math.cos(p2)));
+// http://gis.stackexchange.com/questions/2951/algorithm-for-offsetting-a-latitude-longitude-by-some-amount-of-meters
+function getLatLong (d, a, lat, lng) {
+	var rad2deg = 180.0 / Math.PI;
+	var R = 6371000; //meters
+	var dx = lat + rad2deg * d * Math.cos(a) / R;
+	var dy = lng + rad2deg * d * Math.sin(a) / (R * Math.cos(lat / rad2deg));
+	return [dx, dy];
 }
 
 // creates an array of random angles from 0 to 2*PI
@@ -36,26 +19,40 @@ function makeArray (n) {
 // creates a loop of length dist from start
 function getPath (dist, start) {
 	var numWayPoints = 5;
-	var d = dist/Math.PI;
+	var milestometers = 1609.34;
+	var d = dist * milestometers / Math.PI;
 	
 	var x = start.lat();
 	var y = start.lng();
 	// pick a random direction around which the loop will be centered
 	var angle = Math.random() * 2 * Math.PI;
 	// convert distance offsets to latitude/longitude locations
-	var dx = getLatLong(d * Math.cos(angle), 0, 0);
-	var dy = getLatLong(d * Math.sin(angle), x, x + dx);
+	var diameters = getLatLong(d, angle, x, y);
   // midpoint/pivot
-	var px = x + dx / 2.0;
-	var py = y + dy / 2.0;
+	var px = (x + diameters[0]) / 2.0;
+	var py = (y + diameters[1]) / 2.0;
+	/*var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(px, py),
+    title:"Hello World!"
+	});
+	marker.setMap(map);
+	var cityCircle = new google.maps.Circle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: map,
+      center: new google.maps.LatLng(px, py),
+      radius: d / 2
+  });*/
 	
 	// get waypoints to make the loop, all the same dist from pivot
 	var angles = makeArray(numWayPoints);
 	// map distance to longitudes/latitudes given an angle
 	var mapfun = function (ang) {
-		var dpx = getLatLong(d / 2.0 * Math.cos(ang), 0, 0);
-		var dpy = getLatLong(d / 2.0 * Math.sin(ang), px, px + dpx);
-    return {location: new google.maps.LatLng(px + dpx, py + dpy), 
+		newpoints = getLatLong(d / 2, ang, px, py);
+    return {location: new google.maps.LatLng(newpoints[0], newpoints[1]), 
 						stopover: false};
 	}
 	var waypts = angles.map(mapfun);
@@ -71,6 +68,12 @@ function getPath (dist, start) {
 	directionsService.route(request, function(result, status) {
 		if (status == 'OK') {
 			directionsDisplay.setDirections(result);
+			var total_dist = 0;
+			for (x in result.routes[0].legs) {
+				leg = result.routes[0].legs[x];
+				total_dist += leg.distance.value;
+			}
+			console.log(total_dist / milestometers);
 		} else {
 			console.log(status);
 		}
