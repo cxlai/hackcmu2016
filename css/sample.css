@@ -17,7 +17,8 @@
 #header {}
 
 #map {
-	height: 50%;
+	height: 80%;
+    margin: 80px;
 }
 
 #login-box {
