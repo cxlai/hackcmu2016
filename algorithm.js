@@ -71,7 +71,8 @@ function getPath (dist, start) {
 	var getRandomAngle = function () {return Math.random() * 2 * Math.PI};
 	
 	// assume start is in geo-coords
-	var (x,y) = start.address_components //TODO
+	var x = start.geometry.location.lat();
+	var y = start.geometry.location.lng();
 	var angle = getRandomAngle();
 	var dx = getLatLong(d*Math.cos(angle),0,0);
 	var dy = getLatLong(d*Math.sin(angle),x,dx);
