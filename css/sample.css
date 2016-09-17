@@ -24,6 +24,17 @@
 }
 #header {}
 
+.down {
+	height: 0px;
+	width: 0px;
+}
+
+.up {
+	height: 0px;
+	width: 0px;
+}
+
+
 #map {
   position: relative;
   height: 80%;
