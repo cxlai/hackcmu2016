@@ -44,8 +44,10 @@
   var directionsService;
   function intialize() {
     geocoder = new google.maps.Geocoder();
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    directionsDisplay.setMap(map);
+    directionsDisplay = new google.maps.DirectionsRenderer({
+      draggable: true,
+      map: map
+    });
     directionsService = new google.maps.DirectionsService();
   }
   function locate() {
