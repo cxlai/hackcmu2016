@@ -80,7 +80,7 @@ function getPath (dist, start) {
 	directionsService.route(request, function(result, status) {
 		if (status == 'OK') {
 			displayTotalDist(result);
-            directionsDisplay.setDirections(result);
+      directionsDisplay.setDirections(result);
 		} else {
 			console.log(status);
 		}
