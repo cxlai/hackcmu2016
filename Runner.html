@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Shell Website</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <style>
+        #fieldset {background:lightyellow; border:2px solid black; margin-bottom:2px; width:500px; display: inline-block;}
+        #label {width:180px; vertical-align:top;}
+        #label2 {width:360px; vertical-align:top;}
+        #label1 { vertical-align:top; width:auto}
+        #address {width:300px; height:50px}
+    </style>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 50%;
+      }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top navbar-static-top" margin-bottom:0>
+    <div class="container">
+
+        <ul class="nav nav-pills navbar-right">
+          <li class="active"> <a href="#home" data-toggle="pill">Homeeee</a></li>
+          
+        </ul>
+        </div>
+</div>
+
+<header class="jumbotron" margin-bottom:0> <br>
+
+                    <!-- Main component for a primary marketing message or call to action -->
+
+                    <div class="container">
+                        <div class="row">
+                            <div> <br> <br>
+                                <h1>TESTINGG</h1>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+</header>
+
+
+<div id="map"></div>
+    <script>
+      var map;
+      var address = document.getElementById('address').value;
+      geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+      });
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA23ACU3jSHJnZTEuAQu04FsoQhfRRi7R8&callback=initMap"
+    async defer></script>
+
+    <script 
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script>
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
