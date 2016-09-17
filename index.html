@@ -31,7 +31,7 @@
   <input type="text" class="form-control" placeholder="Username" id='username' name='username'>
   <label for="password"> </label>
   <input type="password" class="form-control" placeholder="Password" id='password' name='password'>
-  <input type="submit" id="submit" value="Login" name="submit" /></button>
+  <input type="submit" id="submit" value="Login" onclick="toggleLogin()" name="submit" />
 </div>
 </form>
 <form method="post" action="http://localhost:8888/signup.php">
@@ -40,7 +40,7 @@
   <input type="text" class="form-control" placeholder="Username" id='username' name='username'>
   <label for="password"> </label>
   <input type="password" class="form-control" placeholder="Password" id='password' name='password'>
-  <input type="submit" id="submit" value="Sign Up!" name="submit" /></button>
+  <input type="submit" id="submit" value="Sign Up!" onclick="toggleSignup()" name="submit" />
 </div>
 </form>
 <br/><br/>
@@ -73,7 +73,7 @@
     if (display == "none") {
       document.getElementById("signup-box").style.display = "block";
     } else {
-      document.getElementById("singup-box").style.display = "none";
+      document.getElementById("signup-box").style.display = "none";
     }
   }
 </script>
