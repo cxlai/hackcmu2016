@@ -76,6 +76,7 @@ function getPath (dist, start) {
 				total_dist += leg.distance.value;
 			}
 			console.log(total_dist / milestometers);
+			document.getElementById("miles").innerHTML = "Miles on this path: " + Math.round(total_dist / milestometers*100)/100;
 		} else {
 			console.log(status);
 		}
