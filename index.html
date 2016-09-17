@@ -5,12 +5,13 @@
 
 	<link rel="stylesheet" type="text/css" href = "./css/sample.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+    
       
     <script 
     src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
     </script>
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
     <script src="index.js"></script>
     <script src="algorithm.js"></script>
@@ -26,7 +27,7 @@
   </ul>
 </nav>
 <div class="right" id="login-box" >
-  <form method="post" action="http://localhost:8888/login.php">
+  <form method="post" action="./login.php">
     <label for="username"> </label>
     <input type="text" class="form-control" placeholder="Username" id='username' name='username'>
     <label for="password"> </label>
@@ -35,31 +36,51 @@
   </form>
 </div>
 <div class="right" id="signup-box">
-  <form method="post" action="http://localhost:8888/signup.php">
+  <form method="post" action="./signup.php">
     <label for="username"> </label>
     <input type="text" class="form-control" placeholder="Username" id='username' name='username'>
     <label for="password"> </label>
     <input type="password" class="form-control" placeholder="Password" id='password' name='password'>
-    <input type="submit" id="signup-submit" class="btn btn-primary" value="Sign Up!" onclick="toggleSignup()" name="submit" />
+    <input type="submit" id="signup-submit" class="btn btn-primary" value="Sign Up" onclick="toggleSignup()" name="submit" />
   </form>
 </div>
+
 <br/><br/>
 	<div class="sample" id="header" align="center">
 	<h1>Walk With Me!</h1>
-<img src="http://media.giphy.com/media/JpV8LLfdgdqi4/giphy.gif" height="50">
+<img src="https://media.giphy.com/media/JpV8LLfdgdqi4/giphy.gif" height="50">
 <h4 id="miles"></h4>
 </div><br/>
-	<div class="input-group input-group-lg" id="address-input">
-		<input type="text" class="form-control" placeholder="5000 Forbes Avenue, Pittsburgh PA" aria-describedby="sizing-addon1" id="address"></div>
+  <div id='inputs'>
+    <button type=button class='btn btn-primary' id="locator" onclick="geolocate()">Get my location</button>
+    <div class="input-group input-group-lg form-horizontal" id="address-input">
+      <input type="text" class="form-control" value="" placeholder="5000 Forbes Avenue, Pittsburgh PA" aria-describedby="sizing-addon1" id="address">
+    </div>
 	<div class="input-group input-group-lg" id="distance-input">
 		<input type="text" class="form-control" placeholder="(in miles)" aria-describedby="sizing-addon1" id="distance">
 	</div>
-	<div class="input-group input-group-lg" id="confirm" align="center"><input type="button" value="Point me!" onclick="locate()"></div>
+	<div class="input-group input-group-lg" id="confirm" align="center"><input type="button" value="Point me!" class="btn btn-primary" onclick="locate()"></div>
+  </div>
 <br/>
 
 <div id="map"></div>
-<div id="dirpanel"></div>
+<div id="dirpanel">Enter a location and distance for walking directions!</div>
 
+
+<script>
+function geolocate() {
+  console.log("locating...");
+  var latitude;
+  var longitude;
+  navigator.geolocation.getCurrentPosition(function(location) {
+    var coords = location.coords.latitude.toString() + ", " + location.coords.longitude.toString();
+    console.log(coords);
+    var addressInput = document.getElementById('address').value = coords;
+    console.log('a', addressInput.value)
+    console.log("done");
+  });
+}
+</script>
 <script>
   function toggleLogin() {
     document.getElementById("signup-box").style.display = "none";
@@ -117,6 +138,7 @@
     }
     getPath(dist, marker.position);
     });
+    document.getElementById('map').scrollIntoView();
   }
 	document.onkeypress = function(e){
 		if (e.keyCode == 13) { locate(); }

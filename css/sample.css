@@ -3,15 +3,19 @@
 	font-family: "Trebuchet MS":
 }
 
-#address-input {
-	width: 60%;
-	margin-top: 200px;
-	margin: auto;
+
+.page {
+  height: 100%;
+  margin: auto;
 }
 
-#distance-input {
-	width: 60%;
-	margin: auto;
+#inputs {
+  width: 60%;
+  margin: auto;
+}
+
+#address-input {
+  margin-top: 10px;
 }
 
 #header {}
@@ -33,6 +37,11 @@
   background: #ffffff;
   height: 70%;
   overflow-y: scroll;
+  text-align: center;
+  vertical-align: middle;
+  color: #aaa;
+  font-size: 15px;
+  padding: 15px;
 }
 
 
