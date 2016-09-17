@@ -23,8 +23,20 @@
 <nav>
   <ul class="right hide-on-med-and-down">
     <li><a href="/profiles/about.html">ABOUT</a></li>
+    <li><a href="#" onclick="displayLogin()">LOGIN</a></li>
+    <li><a href="#" onclick="displaySignup()">SIGNUP</a></li>
   </ul>
 </nav>
+<div id="login-box" class="right">
+  <input type="text" class="form-control" placeholder="Username" id='username'>
+  <input type="password" class="form-control" placeholder="Password" id='password'>
+  <button type="button" class="btn btn-primary" onclick="hideLogin()" id='login-submit'>Submit</button>
+</div>
+<div id="signup-box" class="right">
+  <input type="text" class="form-control" placeholder="Username" id='username'>
+  <input type="password" class="form-control" placeholder="Password" id='password'>
+  <button type="button" class="btn btn-primary" onclick="hideSignup()" id='signup-submit'>Sign Up!</button>
+</div>
 <br/><br/>
 	<div class="sample" id="header" align="center">
 	<h1>Walk With Me!</h1>
@@ -39,6 +51,21 @@
 	<div class="input-group input-group-lg" id="confirm" align="center"><input type="button" value="Point me!" onclick="locate()"></div>
 <br/>
 <div id="map"></div>
+
+<script>
+  function displayLogin() {
+    document.getElementById("login-box").style.display = "block";
+  }
+  function hideLogin() {
+    document.getElementById("login-box").style.display = "none";
+  }
+  function displaySignup() {
+    document.getElementById("signup-box").style.display = "block";
+  }
+  function hideSignup() {
+    document.getElementById("signup-box").style.display = "none";
+  }
+</script>
 <script>
   var geocoder;
   var map;
@@ -83,6 +110,20 @@
     });
   }
 </script>
+      
+<script>
+  window.mapOptions = {
+    variant: 'City',
+    data : {
+      bounds: {"sw":{"lat":40.293575,"lng":-80.172815},"ne":{"lat":40.595666,"lng":-79.776787}},
+      type: 'crime',
+      url: '/pa/pittsburgh/polygons.json/',
+      count: 191,
+      average_points: 249
+    }
+  };
+</script>
+
 <!---	<div class="row"><div class="col s12 16">
 	<div class="sample" id ="dog-info" align = "center" width = "100"><font face=georgia, serif>there are many doges</font></div><br/></div></div>
 	<div class="col s12 16">
