@@ -2,13 +2,24 @@
 	<head>
 	<title>Walk With Me!</title>
 	 <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
 
 	<link rel="stylesheet" type="text/css" href = "./css/sample.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+      
+    <script 
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+    <script src="index.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA23ACU3jSHJnZTEuAQu04FsoQhfRRi7R8&callback=initMap"
+  async defer></script>
+    <script src="algorithm.js"></script>
 	</head>
 
 
-	<body>
+	<body onload="intialize()">
 <nav>
   <ul class="right hide-on-med-and-down">
     <li><a href="/profiles/about.html">ABOUT</a></li>
@@ -24,36 +35,44 @@
 	<div class="input-group input-group-lg" id="distance-input">
 		<input type="text" class="form-control" placeholder="(in miles)" aria-describedby="sizing-addon1" id="distance">
 	</div>
-	<div class="input-group input-group-lg" id="confirm" align="center"><input type="Submit" value="Point me!"></div>
+	<div class="input-group input-group-lg" id="confirm" align="center"><input type="button" value="Point me!" onclick="locate()"></div>
 <br/>
 <div id="map"></div>
-    <script>
-      var map;
-      var address = document.getElementById('address').value;
-      geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
+<script>
+  var geocoder;
+  var map;
+  var directionsService;
+  function intialize() {
+    geocoder = new google.maps.Geocoder();
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(map);
+    directionsService = new google.maps.DirectionsService();
+  }
+  function locate() {
+    var address = document.getElementById('address').value;
+    var dist = document.getElementById('distance').value;
+    var marker;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == 'OK') {
+      
+      map.setCenter(results[0].geometry.location);
+      marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
       });
-
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA23ACU3jSHJnZTEuAQu04FsoQhfRRi7R8&callback=initMap"
-    async defer></script>
-    <script 
-    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-    </script>
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+    getPath(dist, marker.position);
+    });
+  }
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 8
+    });
+  }
+</script>
 <!---	<div class="row"><div class="col s12 16">
 	<div class="sample" id ="dog-info" align = "center" width = "100"><font face=georgia, serif>there are many doges</font></div><br/></div></div>
 	<div class="col s12 16">
@@ -65,11 +84,8 @@ very cute<br/>
 	<a href="/profiles/emolyrics.html">emolyrics</a><br/>
 	<a href="/profiles/bye.html">misc</a>-->	
                                 
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
-<script src="index.js"></script>
 
 </body>
 
