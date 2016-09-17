@@ -13,8 +13,6 @@
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
     <script src="index.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA23ACU3jSHJnZTEuAQu04FsoQhfRRi7R8&callback=initMap"
-  async defer></script>
     <script src="algorithm.js"></script>
 	</head>
 
@@ -76,6 +74,9 @@
       draggable: true,
       map: map
     });
+    directionsDisplay.addListener('directions_changed', function() {
+      displayTotalDist(directionsDisplay.getDirections());
+    });
     directionsService = new google.maps.DirectionsService();
   }
   function locate() {
@@ -103,6 +104,8 @@
     });
   }
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA23ACU3jSHJnZTEuAQu04FsoQhfRRi7R8&callback=initMap"
+async defer></script>
       
 <script>
   window.mapOptions = {
