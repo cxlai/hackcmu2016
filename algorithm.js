@@ -1,4 +1,6 @@
 // http://gis.stackexchange.com/questions/2951/algorithm-for-offsetting-a-latitude-longitude-by-some-amount-of-meters
+var milestometers = 1609.34;
+
 function getLatLong (d, a, lat, lng) {
 	var rad2deg = 180.0 / Math.PI;
 	var R = 6371000; //meters
@@ -16,6 +18,15 @@ function makeArray (ref, n) {
 	return arr;
 }
 
+function displayTotalDist(result) {
+  var total_dist = 0;
+  for (x in result.routes[0].legs) {
+    leg = result.routes[0].legs[x];
+    total_dist += leg.distance.value;
+  }
+  total_dist = Math.round(total_dist / milestometers*100)/100;
+  document.getElementById("miles").innerHTML = "Miles on this path: " + total_dist;
+}
 // creates a loop of length dist from start
 function getPath (dist, start) {
 	var scalefactor = .75;
@@ -68,14 +79,8 @@ function getPath (dist, start) {
 	
 	directionsService.route(request, function(result, status) {
 		if (status == 'OK') {
-			directionsDisplay.setDirections(result);
-			var total_dist = 0;
-			for (x in result.routes[0].legs) {
-				leg = result.routes[0].legs[x];
-				total_dist += leg.distance.value;
-			}
-			console.log(total_dist / milestometers);
-			document.getElementById("miles").innerHTML = "Miles on this path: " + Math.round(total_dist / milestometers*100)/100;
+			displayTotalDist(result);
+            directionsDisplay.setDirections(result);
 		} else {
 			console.log(status);
 		}
