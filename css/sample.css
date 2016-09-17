@@ -33,6 +33,11 @@
   background: #ffffff;
   height: 70%;
   overflow-y: scroll;
+  text-align: center;
+  vertical-align: middle;
+  padding: 15px;
+  font-size: 15px;
+  color: #aaa;
 }
 
 
