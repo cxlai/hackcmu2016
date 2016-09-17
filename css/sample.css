@@ -18,6 +18,10 @@
   margin-top: 10px;
 }
 
+#locator {
+  margin-left: auto;
+  align-self: center;
+}
 #header {}
 
 #map {
