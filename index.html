@@ -50,10 +50,13 @@
       map: map
     });
     directionsService = new google.maps.DirectionsService();
+		//map.controls[google.maps.ControlPosition.TOP_LEFT].push(address);
+		//var autocomplete = new google.maps.places.Autocomplete(address);
+		//autocomplete.bindTo('bounds', map);
   }
   function locate() {
-    var address = document.getElementById('address').value;
     var dist = document.getElementById('distance').value;
+		var address = document.getElementById('address').value;
     var marker;
     geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == 'OK') {
@@ -69,6 +72,10 @@
     getPath(dist, marker.position);
     });
   }
+	document.onkeypress = function(e){
+		console.log(e.keyCode);
+		if (e.keyCode == 13) { locate(); }
+	}
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 40.397, lng: -79.944306},
