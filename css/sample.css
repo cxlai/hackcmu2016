@@ -16,6 +16,10 @@
 
 #header {}
 
+#map {
+	height: 50%;
+}
+
 /*#dog-info {}
 
 #dog-names{}
