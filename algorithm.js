@@ -7,23 +7,24 @@ function getLatLong (d, a, lat, lng) {
 	return [dx, dy];
 }
 
-// creates an array of random angles from 0 to 2*PI
-function makeArray (ref, n) {
-	var arr = [];
-	for (var i = 1; i <= n; i++) {
-		arr.push(ref + i * 2.0 / n * Math.PI);
-	}
-	return arr;
-}
-
 function adjustAngle (ref, a) {
 	b = a - ref; 
 	return b < 0 ? b + 2 * Math.PI : b;
 }
 
+
+// creates an array of random angles from 0 to 2*PI
+function makeArray (ref, n) {
+	var arr = [];
+	for (var i = 1; i <= n; i++) {
+		arr.push(ref + i * 2.0 / (n+1) * Math.PI);
+	}
+	return arr;
+}
+
 // creates a loop of length dist from start
 function getPath (dist, start) {
-	var numWayPoints = 5;
+	var numWayPoints = 3;
 	var milestometers = 1609.34;
 	var d = dist * milestometers / Math.PI;
 	
@@ -53,9 +54,11 @@ function getPath (dist, start) {
   });*/
 	
 	// get waypoints to make the loop, all the same dist from pivot
-	var angles = makeArray(angle, numWayPoints);
+	var angles = makeArray(angle+Math.PI, numWayPoints);
+	console.log(angles);
 	angles.sort(function (a,b) {return adjustAngle(angle, a) - adjustAngle(angle, b)});
-	// map distance to longitudes/latitudes given an angle
+	console.log(angles);
+  // map distance to longitudes/latitudes given an angle
 	var mapfun = function (ang) {
 		newpoints = getLatLong(d / 2, ang, px, py);
     return {location: new google.maps.LatLng(newpoints[0], newpoints[1]), 
