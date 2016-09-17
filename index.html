@@ -31,7 +31,7 @@
     <input type="text" class="form-control" placeholder="Username" id='username' name='username'>
     <label for="password"> </label>
     <input type="password" class="form-control" placeholder="Password" id='password' name='password'>
-    <input type="submit" id="submit" class="btn btn-primary register" value="Login" onclick="toggleLogin()" name="login-submit" />
+    <input type="submit" id="login-submit" class="btn btn-primary register" value="Login" onclick="toggleLogin()" name="login-submit" />
   </form>
 </div>
 <div class="right" id="signup-box">
@@ -40,7 +40,7 @@
     <input type="text" class="form-control" placeholder="Username" id='username' name='username'>
     <label for="password"> </label>
     <input type="password" class="form-control" placeholder="Password" id='password' name='password'>
-    <input type="submit" id="signup-submit" class="btn btn-primary register" value="Sign Up!" onclick="toggleSignup()" name="submit" />
+    <input type="submit" id="signup-submit" class="btn btn-primary" value="Sign Up!" onclick="toggleSignup()" name="submit" />
   </form>
 </div>
 <br/><br/>
@@ -62,6 +62,7 @@
 
 <script>
   function toggleLogin() {
+    document.getElementById("signup-box").style.display = "none";
     var display = document.getElementById("login-box").style.display;
     console.log('a', display);
     if (display == "block") {
@@ -71,6 +72,7 @@
     }
   }
   function toggleSignup() {
+    document.getElementById("login-box").style.display = "none";
     var display = document.getElementById("signup-box").style.display;
     if (display == "block") {
       document.getElementById("signup-box").style.display = "none";
