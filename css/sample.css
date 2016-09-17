@@ -20,6 +20,28 @@
 	height: 50%;
 }
 
+#login-box {
+  display: none;
+  width: 300px;
+  padding: 20px;
+  outline: 1px solid black;
+  position: absolute;
+  right: 85px;
+}
+
+#signup-box {
+  display: none;
+  width: 300px;
+  padding: 20px;
+  outline: 1px solid black;
+  position: absolute;
+  right: 0;
+}
+
+#login-submit, #signup-submit {
+  float: right;
+}
+
 /*#dog-info {}
 
 #dog-names{}
