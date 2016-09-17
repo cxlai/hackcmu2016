@@ -21,19 +21,19 @@
 <nav>
   <ul class="right hide-on-med-and-down">
     <li><a href="./profiles/about.html">ABOUT</a></li>
-    <li><a href="#" onclick="displayLogin()">LOGIN</a></li>
-    <li><a href="#" onclick="displaySignup()">SIGNUP</a></li>
+    <li><a href="#" onclick="toggleLogin()">LOGIN</a></li>
+    <li><a href="#" onclick="toggleSignup()">SIGNUP</a></li>
   </ul>
 </nav>
 <div id="login-box" class="right">
   <input type="text" class="form-control" placeholder="Username" id='username'>
   <input type="password" class="form-control" placeholder="Password" id='password'>
-  <button type="button" class="btn btn-primary" onclick="hideLogin()" id='login-submit'>Submit</button>
+  <button type="button" class="btn btn-primary" onclick="toggleLogin()" id='login-submit'>Submit</button>
 </div>
 <div id="signup-box" class="right">
   <input type="text" class="form-control" placeholder="Username" id='username'>
   <input type="password" class="form-control" placeholder="Password" id='password'>
-  <button type="button" class="btn btn-primary" onclick="hideSignup()" id='signup-submit'>Sign Up!</button>
+  <button type="button" class="btn btn-primary" onclick="toggleSignup()" id='signup-submit'>Sign Up!</button>
 </div>
 <br/><br/>
 	<div class="sample" id="header" align="center">
@@ -52,17 +52,21 @@
 <div id="map"></div>
 
 <script>
-  function displayLogin() {
-    document.getElementById("login-box").style.display = "block";
+  function toggleLogin() {
+    var display = document.getElementById("login-box").style.display;
+    if (display == "none") {
+      document.getElementById("login-box").style.display = "block";
+    } else {
+      document.getElementById("login-box").style.display = "none";
+    }
   }
-  function hideLogin() {
-    document.getElementById("login-box").style.display = "none";
-  }
-  function displaySignup() {
-    document.getElementById("signup-box").style.display = "block";
-  }
-  function hideSignup() {
-    document.getElementById("signup-box").style.display = "none";
+  function toggleSignup() {
+    var display = document.getElementById("signup-box").style.display;
+    if (display == "none") {
+      document.getElementById("signup-box").style.display = "block";
+    } else {
+      document.getElementById("singup-box").style.display = "none";
+    }
   }
 </script>
 <script>
