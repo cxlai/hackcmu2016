@@ -20,9 +20,9 @@
 	<body onload="intialize()">
 <nav>
   <ul class="right hide-on-med-and-down">
-    <li><a href="/profiles/about.html">ABOUT</a></li>
-    <li><a href="#" onclick="displayLogin()">LOGIN</a></li>
-    <li><a href="#" onclick="displaySignup()">SIGNUP</a></li>
+    <li><a href="./profiles/about.html">ABOUT</a></li>
+    <li><a href="#" onclick="toggleLogin()">LOGIN</a></li>
+    <li><a href="#" onclick="toggleSignup()">SIGNUP</a></li>
   </ul>
 </nav>
 <form method="post" action="http://localhost:8888/login.php">
@@ -56,21 +56,25 @@
 	</div>
 	<div class="input-group input-group-lg" id="confirm" align="center"><input type="button" value="Point me!" onclick="locate()"></div>
 <br/>
+<div id="dirpanel"></div>
 <div id="map"></div>
 
 <script>
-
-  function displayLogin() {
-    document.getElementById("login-box").style.display = "block";
+  function toggleLogin() {
+    var display = document.getElementById("login-box").style.display;
+    if (display == "none") {
+      document.getElementById("login-box").style.display = "block";
+    } else {
+      document.getElementById("login-box").style.display = "none";
+    }
   }
-  function hideLogin() {
-    document.getElementById("login-box").style.display = "none";
-  }
-  function displaySignup() {
-    document.getElementById("signup-box").style.display = "block";
-  }
-  function hideSignup() {
-    document.getElementById("signup-box").style.display = "none";
+  function toggleSignup() {
+    var display = document.getElementById("signup-box").style.display;
+    if (display == "none") {
+      document.getElementById("signup-box").style.display = "block";
+    } else {
+      document.getElementById("singup-box").style.display = "none";
+    }
   }
 </script>
 <script>
@@ -81,16 +85,20 @@
     geocoder = new google.maps.Geocoder();
     directionsDisplay = new google.maps.DirectionsRenderer({
       draggable: true,
-      map: map
+      map: map,
+			panel: document.getElementById('dirpanel')
     });
     directionsDisplay.addListener('directions_changed', function() {
       displayTotalDist(directionsDisplay.getDirections());
     });
     directionsService = new google.maps.DirectionsService();
+		//map.controls[google.maps.ControlPosition.TOP_LEFT].push(address);
+		//var autocomplete = new google.maps.places.Autocomplete(address);
+		//autocomplete.bindTo('bounds', map);
   }
   function locate() {
-    var address = document.getElementById('address').value;
     var dist = document.getElementById('distance').value;
+		var address = document.getElementById('address').value;
     var marker;
     geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == 'OK') {
@@ -106,6 +114,9 @@
     getPath(dist, marker.position);
     });
   }
+	document.onkeypress = function(e){
+		if (e.keyCode == 13) { locate(); }
+	}
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 40.397, lng: -79.944306},

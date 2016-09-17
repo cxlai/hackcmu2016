@@ -29,8 +29,10 @@ function displayTotalDist(result) {
 }
 // creates a loop of length dist from start
 function getPath (dist, start) {
+	var scalefactor = .75;
 	var numWayPoints = 3;
-	var d = dist * milestometers / Math.PI;
+	var milestometers = 1609.34;
+	var d = scalefactor * dist * milestometers / Math.PI;
 	
 	var x = start.lat();
 	var y = start.lng();
@@ -59,8 +61,6 @@ function getPath (dist, start) {
 	
 	// get waypoints to make the loop, all the same dist from pivot
 	var angles = makeArray(angle+Math.PI, numWayPoints);
-	console.log(angles);
-	console.log(angles);
   // map distance to longitudes/latitudes given an angle
 	var mapfun = function (ang) {
 		newpoints = getLatLong(d / 2, ang, px, py);
@@ -80,7 +80,7 @@ function getPath (dist, start) {
 	directionsService.route(request, function(result, status) {
 		if (status == 'OK') {
 			displayTotalDist(result);
-            directionsDisplay.setDirections(result);
+      directionsDisplay.setDirections(result);
 		} else {
 			console.log(status);
 		}
