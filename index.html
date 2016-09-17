@@ -25,24 +25,24 @@
     <li><a href="#" onclick="toggleSignup()">SIGNUP</a></li>
   </ul>
 </nav>
-<form method="post" action="http://localhost:8888/login.php">
-<div id="login-box" class="right">
-  <label for="username"> </label>
-  <input type="text" class="form-control" placeholder="Username" id='username' name='username'>
-  <label for="password"> </label>
-  <input type="password" class="form-control" placeholder="Password" id='password' name='password'>
-  <input type="submit" id="submit" value="Login" onclick="toggleLogin()" name="submit" />
+<div class="right" id="login-box" >
+  <form method="post" action="http://localhost:8888/login.php">
+    <label for="username"> </label>
+    <input type="text" class="form-control" placeholder="Username" id='username' name='username'>
+    <label for="password"> </label>
+    <input type="password" class="form-control" placeholder="Password" id='password' name='password'>
+    <input type="submit" id="submit" class="btn btn-primary register" value="Login" onclick="toggleLogin()" name="login-submit" />
+  </form>
 </div>
-</form>
-<form method="post" action="http://localhost:8888/signup.php">
-<div id="signup-box" class="right">
-  <label for="username"> </label>
-  <input type="text" class="form-control" placeholder="Username" id='username' name='username'>
-  <label for="password"> </label>
-  <input type="password" class="form-control" placeholder="Password" id='password' name='password'>
-  <input type="submit" id="submit" value="Sign Up!" onclick="toggleSignup()" name="submit" />
+<div class="right" id="signup-box">
+  <form method="post" action="http://localhost:8888/signup.php">
+    <label for="username"> </label>
+    <input type="text" class="form-control" placeholder="Username" id='username' name='username'>
+    <label for="password"> </label>
+    <input type="password" class="form-control" placeholder="Password" id='password' name='password'>
+    <input type="submit" id="signup-submit" class="btn btn-primary register" value="Sign Up!" onclick="toggleSignup()" name="submit" />
+  </form>
 </div>
-</form>
 <br/><br/>
 	<div class="sample" id="header" align="center">
 	<h1>Walk With Me!</h1>
@@ -62,18 +62,19 @@
 <script>
   function toggleLogin() {
     var display = document.getElementById("login-box").style.display;
-    if (display == "none") {
-      document.getElementById("login-box").style.display = "block";
-    } else {
+    console.log('a', display);
+    if (display == "block") {
       document.getElementById("login-box").style.display = "none";
+    } else {
+      document.getElementById("login-box").style.display = "block";
     }
   }
   function toggleSignup() {
     var display = document.getElementById("signup-box").style.display;
-    if (display == "none") {
-      document.getElementById("signup-box").style.display = "block";
-    } else {
+    if (display == "block") {
       document.getElementById("signup-box").style.display = "none";
+    } else {
+      document.getElementById("signup-box").style.display = "block";
     }
   }
 </script>
