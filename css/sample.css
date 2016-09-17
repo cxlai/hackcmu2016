@@ -17,9 +17,24 @@
 #header {}
 
 #map {
-	height: 80%;
-    margin: 80px;
+  position: relative;
+  height: 80%;
+  margin: 80px;
 }
+
+#dirpanel {
+  width: 30%;
+  float: left;
+  display: block;
+  margin: 80px;
+  position: relative;
+  left: 5px;
+  top: -100%;
+  background: #ffffff;
+  height: 70%;
+  overflow-y: scroll;
+}
+
 
 #login-box {
   display: none;
